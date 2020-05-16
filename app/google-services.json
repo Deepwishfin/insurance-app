@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "864113011816",
+    "firebase_url": "https://wishpolicy-dialer-app.firebaseio.com",
+    "project_id": "wishpolicy-dialer-app",
+    "storage_bucket": "wishpolicy-dialer-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864113011816:android:6f1805f1369ba7c001dfdd",
+        "android_client_info": {
+          "package_name": "com.example.dialerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864113011816-e42t9dj2urq1kv0p0s8h3o38rc2oaiel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKxmSyZrV12ChAPZVnwy9yc-B-gGOM3t4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864113011816-e42t9dj2urq1kv0p0s8h3o38rc2oaiel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

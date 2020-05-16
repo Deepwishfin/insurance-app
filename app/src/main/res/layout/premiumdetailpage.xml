@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradientback"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/heading_back"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
+
+
+        <com.example.dialerapp.FontClasses.PopinsSemibold
+            android:id="@+id/heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="Premium Detail Page"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+
+    </LinearLayout>
+
+
+    <com.example.dialerapp.FontClasses.PoppinsRegular
+        android:id="@+id/loggedin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:drawableEnd="@drawable/ic_logout"
+        android:drawablePadding="10dp"
+        android:gravity="right"
+        android:text="Log in as Deep"
+        android:textAllCaps="true"
+        android:textColor="#788691"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <com.example.dialerapp.FontClasses.PopinsSemibold
+        android:id="@+id/lead_id_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#ffccff"
+        android:padding="5dp"
+        android:textColor="#707070"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:padding="5dp"
+                tools:ignore="MissingConstraints">
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp">
+
+                    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                        android:id="@+id/spring_dots_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:dotsColor="#304258"
+                        app:dotsSize="7dp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager1"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ontimepaymentbackground"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="3">
+
+
+                <com.example.dialerapp.FontClasses.PopinsSemibold
+                    android:id="@+id/sumassured"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="#788961"
+                    android:textSize="16sp" />
+
+
+                <com.example.dialerapp.FontClasses.PopinsSemibold
+                    android:id="@+id/coverupto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="#788961"
+                    android:textSize="16sp" />
+
+                <com.example.dialerapp.FontClasses.PopinsSemibold
+                    android:id="@+id/maxlimit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="#788961"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <com.example.dialerapp.FontClasses.PopinsSemibold
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Policy Premium"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/policy_premium_listing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ontimepaymentbackground"
+                android:padding="5dp"
+                android:scrollbars="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="5">
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:id="@+id/select_yearly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ontimepaymentbackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Yearly"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:id="@+id/select_monthly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ontimepaymentbackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Monthly"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:id="@+id/select_halfyearly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ontimepaymentbackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Half Yearly"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:id="@+id/select_quaterly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ontimepaymentbackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Quaterly"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:id="@+id/select_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ontimepaymentbackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Single"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/offerlistimagebackground"
+                android:orientation="vertical"
+                android:padding="10dp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.example.dialerapp.FontClasses.PoppinsRegular
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:text="TOTAL PREMIUM"
+                            android:textColor="#788961"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.example.dialerapp.FontClasses.PopinsSemibold
+                    android:id="@+id/total_premium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:gravity="center"
+                    android:textColor="#8BC34A"
+                    android:textSize="20sp" />
+
+                <com.example.dialerapp.FontClasses.PoppinsRegular
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:background="#FF9800"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="GET URL"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/policy_rider_listing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/ontimepaymentbackground"
+                            android:padding="5dp"
+                            android:scrollbars="vertical">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

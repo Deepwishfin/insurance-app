@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/offerlistimagebackground"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.example.dialerapp.FontClasses.PopinsSemibold
+                    android:id="@+id/leadname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="3"
+                    android:text=""
+                    android:textColor="#788691"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <com.example.dialerapp.FontClasses.PoppinsRegular
+                android:id="@+id/leadmobile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:maxLines="3"
+                android:textColor="#788691"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <com.example.dialerapp.FontClasses.PoppinsRegular
+            android:id="@+id/leademail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:maxLines="3"
+            android:textColor="#788691"
+            android:textSize="16sp" />
+
+        <com.example.dialerapp.FontClasses.PoppinsRegular
+            android:id="@+id/leadsource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:maxLines="3"
+            android:textColor="#788691"
+            android:textSize="16sp" />
+
+        <com.example.dialerapp.FontClasses.PoppinsRegular
+            android:id="@+id/leadallocateddate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:maxLines="3"
+            android:textColor="#788691"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
