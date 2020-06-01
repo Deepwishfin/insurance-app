@@ -9,11 +9,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +50,11 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
     RequestQueue queue;
     SharedPreferences prefs;
     Share_Adapter radio_question_list_adapter;
-    TextView loggedin,heading;
+    TextView loggedin, heading;
     private SwipeRefreshLayout swipeView;
     Dialog dialog;
     boolean doubleBackToExitPressedOnce = false;
+    EditText search_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,8 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
         credit_factor_list = findViewById(R.id.list);
         heading = findViewById(R.id.heading);
         loggedin = findViewById(R.id.loggedin);
+        search_bar = findViewById(R.id.search_bar);
+        search_bar.setVisibility(View.GONE);
 
         swipeView = findViewById(R.id.swipe_view);
         swipeView.setOnRefreshListener(this);
@@ -107,7 +114,7 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
         credit_factor_list.setLayoutManager(layoutManager1);
 
         heading.setText("Dashboard");
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
 
         loggedin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +147,48 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
 
         get_cibil_credit_factors();
 
+        search_bar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // filter your list from your input
+                filter(s.toString());
+                //you can use runnable postDelayed like 500 ms to delay search text
+            }
+        });
 
     }
+
+    void filter(String text) {
+        ArrayList<Gettersetterforall> temp = new ArrayList<>();
+        for (Gettersetterforall d : list1) {
+            if (d.getLeadtype().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLeadid().contains(text)) {
+                temp.add(d);
+            }
+        }
+        if (temp.size() != 0) {
+            radio_question_list_adapter = new Share_Adapter(Dashboard.this, temp);
+            credit_factor_list.setAdapter(radio_question_list_adapter);
+        } else {
+            radio_question_list_adapter = new Share_Adapter(Dashboard.this, list1);
+            credit_factor_list.setAdapter(radio_question_list_adapter);
+        }
+    }
+
 
     public void get_cibil_credit_factors() {
 
@@ -223,12 +270,14 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
         class MyViewHolder extends RecyclerView.ViewHolder {
             TextView tv1, tv2;
             LinearLayout relit;
+            ImageView edit_image;
 
             MyViewHolder(View view) {
                 super(view);
                 tv1 = view.findViewById(R.id.lead_name);
                 tv2 = view.findViewById(R.id.lead_count);
                 relit = view.findViewById(R.id.linear);
+                edit_image = view.findViewById(R.id.edit_image);
 
             }
         }
@@ -246,6 +295,19 @@ public class Dashboard extends Activity implements SwipeRefreshLayout.OnRefreshL
 
             holder.tv1.setText(list_car.get(position).getLeadtype());
             holder.tv2.setText(list_car.get(position).getLeadcount());
+
+            if (list_car.get(position).getLeadtype().equalsIgnoreCase("NEW")) {
+                holder.edit_image.setBackgroundResource(R.drawable.ic_new);
+            } else if (list_car.get(position).getLeadtype().equalsIgnoreCase("CALL BACK")) {
+                holder.edit_image.setBackgroundResource(R.drawable.ic_call_back);
+            } else if (list_car.get(position).getLeadtype().equalsIgnoreCase("NOT-CONTACTABLE")) {
+                holder.edit_image.setBackgroundResource(R.drawable.ic_not_call);
+            } else if (list_car.get(position).getLeadtype().equalsIgnoreCase("FOLLOW UP")) {
+                holder.edit_image.setBackgroundResource(R.drawable.ic_follow_up);
+            } else {
+                holder.edit_image.setBackgroundResource(R.drawable.help);
+            }
+
 
             holder.relit.setOnClickListener(new View.OnClickListener() {
                 @Override

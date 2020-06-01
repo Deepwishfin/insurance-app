@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/heading_back"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:padding="10dp"
         android:weightSum="3">
 
 
@@ -21,35 +20,56 @@
             android:id="@+id/heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:maxLines="1"
             android:textAllCaps="true"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="16sp" />
+
+        <com.example.dialerapp.FontClasses.PoppinsRegular
+            android:id="@+id/loggedin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.7"
+            android:gravity="right|center_vertical"
+            android:drawableEnd="@drawable/ic_logout"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
 
-
-    <com.example.dialerapp.FontClasses.PoppinsRegular
-        android:id="@+id/loggedin"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:drawableEnd="@drawable/ic_logout"
-        android:drawablePadding="10dp"
-        android:gravity="right"
-        android:textAllCaps="true"
-        android:textColor="#788691"
-        android:textSize="16sp" />
+        android:background="#DAF2F1">
 
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/searchbarback"
+            android:drawableLeft="@drawable/ic_filter"
+            android:drawablePadding="10dp"
+            android:hint="Search here..."
+            android:textColorHint="#64797D"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:padding="10dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp">
+        android:layout_margin="20dp">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

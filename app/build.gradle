@@ -6,8 +6,8 @@ android {
     defaultConfig {
         applicationId "com.example.dialerapp"
         minSdkVersion 17
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,6 +32,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+    implementation 'joda-time:joda-time:2.9.9'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.firebase:firebase-core:17.2.3'
     implementation 'com.google.firebase:firebase-config:19.1.3'

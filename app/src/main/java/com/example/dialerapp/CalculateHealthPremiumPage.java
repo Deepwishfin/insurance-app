@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -237,7 +238,7 @@ public class CalculateHealthPremiumPage extends Activity {
             }
         });
 
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
         lead_id_heading.setText("Lead Id-" + lead_id + "(" + lead_name + ")");
 
         loggedin.setOnClickListener(new View.OnClickListener() {
@@ -341,6 +342,7 @@ public class CalculateHealthPremiumPage extends Activity {
             json.put("deductible", "" + deductible);
             int spage = Integer.parseInt(spouseAge);
             json.put("spouseAge", spage);
+            json.put("app_version", Constants.app_version);
 //
 
 
@@ -397,13 +399,25 @@ public class CalculateHealthPremiumPage extends Activity {
                                 springDotsIndicator.setViewPager(viewPager);
 
 //For The First Time
-                                select_yearly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-                                select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
+                                select_yearly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+                                select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+                                select_yearly.setTextColor(Color.parseColor("#FFFFFF"));
+                                select_single.setTextColor(Color.parseColor("#000000"));
+                                select_halfyearly.setTextColor(Color.parseColor("#000000"));
+                                select_monthly.setTextColor(Color.parseColor("#000000"));
+                                select_quaterly.setTextColor(Color.parseColor("#000000"));
 
                                 update_policy_listing(0);
+
+                                if (cardlist.size() == 0) {
+                                    Toast.makeText(CalculateHealthPremiumPage.this, "No Plan Available", Toast.LENGTH_LONG).show();
+
+                                    finish();
+                                }
 
                                 progressDialog.dismiss();
                             } else {
@@ -601,7 +615,7 @@ public class CalculateHealthPremiumPage extends Activity {
                 row_index = 0;
             }
             if (row_index == position) {
-                holder.linear.setBackgroundResource(R.drawable.selectedpaolicybackground);
+                holder.linear.setBackgroundResource(R.drawable.selectedpolicybackground);
             } else {
                 holder.linear.setBackgroundResource(R.drawable.deselectedpolicypremiumback);
             }

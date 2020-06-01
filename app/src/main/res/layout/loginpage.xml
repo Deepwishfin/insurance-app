@@ -3,28 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="15dp"
-        android:paddingTop="15dp"
-        android:paddingRight="15dp"
-        tools:ignore="MissingConstraints">
+        android:layout_marginTop="50dp">
+
 
         <ImageView
             android:id="@+id/backbutton"
             android:layout_width="17dp"
             android:layout_height="17dp"
+            android:layout_margin="10dp"
             android:background="@drawable/backarrow"
             android:contentDescription="TODO"
             android:visibility="gone" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="123sp"
+                android:layout_height="55sp"
+                android:background="@drawable/logoicon"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearone"
@@ -36,43 +44,44 @@
         android:visibility="visible">
 
 
-        <com.example.dialerapp.FontClasses.PoppinsMedium
+        <com.example.dialerapp.FontClasses.PopinsSemibold
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Welcome"
-            android:textColor="#2E384D"
-            android:textSize="14dp" />
+            android:textColor="#173338"
+            android:textSize="22sp" />
 
         <com.example.dialerapp.FontClasses.PoppinsRegular
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="32dp"
+            android:gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Please Login to Continue"
-            android:textColor="#8181A1"
-            android:textSize="12dp" />
+            android:textColor="#64797D"
+            android:textSize="14sp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
             android:orientation="vertical"
             android:padding="15dp">
 
             <Spinner
                 android:id="@+id/usertype"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_spinner"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/large_spinner"
                 android:entries="@array/lms_type"
-                android:paddingEnd="25dp"
                 android:popupBackground="#ffffff" />
 
 
@@ -80,24 +89,27 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="User name"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edittextbackgrnd"
+                android:hint="Enter User Name"
                 android:inputType="text"
                 android:maxLength="40"
-                android:textColor="#304258"
-                android:textColorHint="#B0BAC9"
-                android:textSize="14dp" />
+                android:textColor="#173338"
+                android:textColorHint="#64797D"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/mobilenumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Mobile number"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edittextbackgrnd"
+                android:hint="Enter Mobile Number"
                 android:inputType="number"
                 android:maxLength="10"
-                android:textColor="#304258"
-                android:textColorHint="#B0BAC9"
-                android:textSize="14dp" />
+                android:textColor="#173338"
+                android:textColorHint="#64797D"
+                android:textSize="14sp" />
 
 
             <com.example.dialerapp.FontClasses.PoppinsMedium
@@ -127,14 +139,15 @@
         android:visibility="gone">
 
 
-        <com.example.dialerapp.FontClasses.PoppinsMedium
+        <com.example.dialerapp.FontClasses.PopinsSemibold
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Enter OTP"
-            android:textColor="#2E384D"
-            android:textSize="14dp" />
+            android:textColor="#173338"
+            android:textSize="22sp" />
 
         <com.example.dialerapp.FontClasses.PoppinsRegular
             android:id="@+id/lastmobiletext"
@@ -145,14 +158,13 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text=""
-            android:textColor="#8181A1"
-            android:textSize="12dp" />
+            android:textColor="#64797D"
+            android:textSize="14sp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -160,7 +172,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:layout_marginTop="32dp"
                 android:baselineAligned="false"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -174,7 +185,7 @@
 
                     <EditText
                         android:id="@+id/otpone"
-                        android:layout_width="45dp"
+                        android:layout_width="50sp"
                         android:layout_height="match_parent"
                         android:background="@drawable/otpedittextbackground"
                         android:gravity="center"
@@ -190,7 +201,7 @@
 
                     <EditText
                         android:id="@+id/otptwo"
-                        android:layout_width="45dp"
+                        android:layout_width="50sp"
                         android:layout_height="match_parent"
                         android:background="@drawable/otpedittextbackground"
                         android:gravity="center"
@@ -206,7 +217,7 @@
 
                     <EditText
                         android:id="@+id/otpthree"
-                        android:layout_width="45dp"
+                        android:layout_width="50sp"
                         android:layout_height="match_parent"
                         android:background="@drawable/otpedittextbackground"
                         android:gravity="center"
@@ -222,7 +233,7 @@
 
                     <EditText
                         android:id="@+id/otpfour"
-                        android:layout_width="45dp"
+                        android:layout_width="50sp"
                         android:layout_height="match_parent"
                         android:background="@drawable/otpedittextbackground"
                         android:gravity="center"
@@ -245,15 +256,15 @@
                 android:textAllCaps="true"
                 android:textColor="#ffffff" />
 
-            <com.example.dialerapp.FontClasses.PoppinsRegular
+            <com.example.dialerapp.FontClasses.PoppinsMedium
                 android:id="@+id/resentotp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="Resend OTP"
-                android:textColor="#FF922D"
-                android:textSize="14dp" />
+                android:textColor="#33D87D"
+                android:textSize="14sp" />
 
 
         </LinearLayout>

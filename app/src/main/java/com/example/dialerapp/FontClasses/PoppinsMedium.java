@@ -24,7 +24,7 @@ public class PoppinsMedium extends TextView {
 
     public void init() {
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(),
-                "Poppins-Medium.ttf");
+                "Roboto-Medium.ttf");
         setTypeface(typeface, 1);
 
     }

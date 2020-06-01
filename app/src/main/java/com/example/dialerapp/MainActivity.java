@@ -180,6 +180,7 @@ public class MainActivity extends Activity {
             json.put("mobile", "" + SessionManager.get_mobile(prefs));
             json.put("type", "Android_App");
             json.put("otp", "" + SessionManager.get_otp(prefs));
+            json.put("app_version", Constants.app_version);
 
         } catch (JSONException e) {
             e.printStackTrace();

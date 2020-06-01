@@ -207,6 +207,7 @@ public class LoginPage extends Activity {
             json.put("mobile", "" + mobilenumber.getText().toString());
             json.put("type", "ANDROID");
             json.put("lms_type", lms_type);
+            json.put("app_version", Constants.app_version);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -222,12 +223,10 @@ public class LoginPage extends Activity {
                         if (jsonObject.getString("status").equalsIgnoreCase("200")) {
                             progressDialog.dismiss();
 
-                            String lastnumber = mobilenumber.getText().toString().substring(mobilenumber.getText().toString().length() - 4);
-
                             linearone.setVisibility(View.GONE);
                             linearthree.setVisibility(View.VISIBLE);
                             timer();
-                            lastmobiletext.setText("We have sent an OTP on ******" + lastnumber);
+                            lastmobiletext.setText("We have sent an OTP on " + mobilenumber.getText().toString());
                             Toast.makeText(LoginPage.this, "" + jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
                         } else {
@@ -279,6 +278,7 @@ public class LoginPage extends Activity {
             json.put("otp", otpstring);
             json.put("type", "ANDROID");
             json.put("device_id", SessionManager.get_device_token(prefs));
+            json.put("app_version", Constants.app_version);
 
         } catch (JSONException e) {
             e.printStackTrace();

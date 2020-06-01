@@ -24,7 +24,7 @@ public class PoppinsRegular extends TextView {
 
     public void init() {
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(),
-                "Poppins-Regular.ttf");
+                "Roboto-Regular.ttf");
         setTypeface(typeface, 1);
 
     }

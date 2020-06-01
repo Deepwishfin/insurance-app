@@ -37,6 +37,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,7 +94,7 @@ public class InvestmentLeadDetailpage extends Activity {
     JSONArray feedbackresponse, policy_term_response;
     String call_id = "";
     CallReceiver broadcastReceiver;
-    boolean stateloaded = false;
+    boolean stateloaded = false, durationload = false, pptload = false;
 
 
     @Override
@@ -490,10 +494,12 @@ public class InvestmentLeadDetailpage extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                policy_term_id = getset_policy_term_list.get(position).getRider_id();
-                policy_term = getset_policy_term_list.get(position).getRider_value();
-
-                getppt(policy_term_id);
+                if (durationload) {
+                    policy_term_id = getset_policy_term_list.get(position).getRider_id();
+                    policy_term = getset_policy_term_list.get(position).getRider_value();
+                    getppt(policy_term_id, "");
+                }
+                durationload = true;
             }
 
             @Override
@@ -506,8 +512,11 @@ public class InvestmentLeadDetailpage extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                ppt_id = getset_ppt_list.get(position).getSecondary_feedback_id();
-                ppt = getset_ppt_list.get(position).getSecondary_feedback_name();
+                if (pptload) {
+                    ppt_id = getset_ppt_list.get(position).getSecondary_feedback_id();
+                    ppt = getset_ppt_list.get(position).getSecondary_feedback_name();
+                }
+                pptload = true;
             }
 
             @Override
@@ -537,7 +546,7 @@ public class InvestmentLeadDetailpage extends Activity {
         });
         dob.setOnClickListener(v -> DatePicdob());
 
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
         lead_id_heading.setText("Lead Id-" + lead_id + "(" + lead_name + ")");
 
         loggedin.setOnClickListener(new View.OnClickListener() {
@@ -579,7 +588,7 @@ public class InvestmentLeadDetailpage extends Activity {
 
         secondary_feedback_list = new ArrayList<>();
         secondary_feedback_list.clear();
-        secondary_feedback_list.add("Select Secondary Feedback");
+        secondary_feedback_list.add("Secondary Feedback");
         try {
             JSONArray jsonArray3 = feedbackresponse;
 
@@ -615,10 +624,13 @@ public class InvestmentLeadDetailpage extends Activity {
         }
     }
 
-    private void getppt(String primary_feedback_id) {
+    private void getppt(String primary_feedback_id, String strppt_id) {
 
         ppt_list = new ArrayList<>();
         ppt_list.clear();
+
+        getset_ppt_list = new ArrayList<>();
+        getset_ppt_list.clear();
 
         try {
             JSONArray jsonArray3 = policy_term_response;
@@ -642,6 +654,22 @@ public class InvestmentLeadDetailpage extends Activity {
                 }
             }
 
+            if (ppt_list.size() == 0) {
+                JSONObject objectnew2 = jsonArray3.getJSONObject(0);
+
+                JSONObject jsonObject = objectnew2.getJSONObject("value");
+                JSONArray jsonArray2 = (jsonObject.getJSONArray("ppt"));
+                for (int j = 0; j < jsonArray2.length(); j++) {
+                    JSONObject objectnew3 = jsonArray2.getJSONObject(j);
+                    Gettersetterforall pack = new Gettersetterforall();
+                    pack.setSecondary_feedback_id(objectnew3.getString("id"));
+                    pack.setSecondary_feedback_name(objectnew3.getString("value"));
+                    getset_ppt_list.add(pack);
+                    ppt_list.add(objectnew3.getString("value"));
+
+                }
+            }
+
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                     (this, android.R.layout.simple_spinner_item,
                             ppt_list); //selected item will look like a spinner set from XML
@@ -649,6 +677,14 @@ public class InvestmentLeadDetailpage extends Activity {
                     .simple_spinner_dropdown_item);
             ppt_spinner.setAdapter(spinnerArrayAdapter);
             ppt_id = getset_ppt_list.get(0).getSecondary_feedback_id();
+
+            for (int i = 0; i < getset_ppt_list.size(); i++) {
+                if (strppt_id.equalsIgnoreCase(getset_ppt_list.get(i).getSecondary_feedback_id())) {
+                    ppt_spinner.setSelection(i);
+                    ppt_id = getset_ppt_list.get(i).getSecondary_feedback_id();
+                }
+            }
+
 
         } catch (Exception e) {
 
@@ -708,19 +744,6 @@ public class InvestmentLeadDetailpage extends Activity {
                                 sum_assured.setText(jsonObject1.getString("premium_amount"));
                             }
                             SessionManager.save_customer_mobile(prefs, jsonObject1.getString("mobile_no"));
-                            try {
-                                if (!jsonObject1.getString("user_comment").equalsIgnoreCase("{}")) {
-                                    JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
-                                    if (!jsonObject11.toString().equals("{}")) {
-                                        wishfin_comments.setText(jsonObject11.toString());
-                                    }
-                                }
-                            } catch (Exception e) {
-                                JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
-                                if (!jsonObject11.toString().equals("{}")) {
-                                    wishfin_comments.setText(jsonObject11.toString());
-                                }
-                            }
 
 
                             if (jsonObject1.getString("Add_Comment").equalsIgnoreCase("null")
@@ -833,7 +856,7 @@ public class InvestmentLeadDetailpage extends Activity {
                             JSONArray jsonArray3 = (jsonObject1.getJSONArray("primary_feedback"));
 
                             feedbackresponse = (jsonObject1.getJSONArray("primary_feedback"));
-                            primary_feedback_list.add("Select Primary Feedback");
+                            primary_feedback_list.add("Primary Feedback");
                             for (int i = 0; i < jsonArray3.length(); i++) {
                                 JSONObject objectnew2 = jsonArray3.getJSONObject(i);
                                 Gettersetterforall pack = new Gettersetterforall();
@@ -881,7 +904,29 @@ public class InvestmentLeadDetailpage extends Activity {
                             policy_term_id = getset_policy_term_list.get(0).getRider_id();
                             policy_term = getset_policy_term_list.get(0).getRider_value();
 
-                            getppt(policy_term_id);
+                            for (int i = 0; i < getset_policy_term_list.size(); i++) {
+                                if (jsonObject1.getString("duration").equalsIgnoreCase(getset_policy_term_list.get(i).getRider_id())) {
+                                    policy_term_spinner.setSelection(i);
+                                    policy_term_id = getset_policy_term_list.get(0).getRider_id();
+                                    policy_term = getset_policy_term_list.get(0).getRider_value();
+                                }
+                            }
+
+                            getppt(jsonObject1.getString("duration"), jsonObject1.getString("ppt"));
+
+                            try {
+                                if (!jsonObject1.getString("user_comment").equalsIgnoreCase("{}")) {
+                                    JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
+                                    if (!jsonObject11.toString().equals("{}")) {
+                                        wishfin_comments.setText(jsonObject11.toString());
+                                    }
+                                }
+                            } catch (Exception e) {
+                                JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
+                                if (!jsonObject11.toString().equals("{}")) {
+                                    wishfin_comments.setText(jsonObject11.toString());
+                                }
+                            }
 
 
                             progressDialog.dismiss();
@@ -1008,31 +1053,47 @@ public class InvestmentLeadDetailpage extends Activity {
 
     private String agecalculator(String dateOfBirth) {
 
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
+        String userAge = "";
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date d = sdf.parse(dateOfBirth);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(d);
-            int month = (cal.get(Calendar.MONTH) + 1);
-            int day = (cal.get(Calendar.DATE));
-            int year = (cal.get(Calendar.YEAR));
-            dob.set(year, month, day);
+            PeriodFormatter mPeriodFormat = new PeriodFormatterBuilder().appendYears().appendSuffix(" year(s) ").appendMonths().appendSuffix(" month(s) ").appendDays().appendSuffix(" day(s) ").printZeroNever().toFormatter();
+
+            Date date2 = sdf.parse(dateOfBirth);
+
+            Calendar mcurrentDate = Calendar.getInstance();
+            mYear = mcurrentDate.get(Calendar.YEAR);
+            mMonth = mcurrentDate.get(Calendar.MONTH) + 1;
+            mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+            String month = "";
+            if (mMonth > 0 && mMonth < 10) {
+                month = "0" + mMonth;
+            } else {
+                month = "" + mMonth;
+            }
+
+            String days = "";
+            if (mDay < 10) {
+                days = "0" + mDay;
+            } else {
+                days = "" + mDay;
+            }
+
+
+            String currentdate = mYear + "-" + month + "-" + days;
+            Date date1 = sdf.parse(currentdate);
+
+            DateTime END_DT = (date1 == null) ? null : new DateTime(date1);
+            DateTime START_DT = (date2 == null) ? null : new DateTime(date2);
+
+            Period period = new Period(START_DT, END_DT);
+
+            userAge = mPeriodFormat.print(period);
+
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-
-        int ageInt = age;
-
-        return Integer.toString(ageInt);
+        return (userAge);
     }
 
     @Override
@@ -1049,10 +1110,22 @@ public class InvestmentLeadDetailpage extends Activity {
     private void DatePicdob() {
 
         Calendar mcurrentDate = Calendar.getInstance();
-        mYear = mcurrentDate.get(Calendar.YEAR);
-        mMonth = mcurrentDate.get(Calendar.MONTH);
-        mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
-
+        if (selecteddate.equalsIgnoreCase("")) {
+            mYear = mcurrentDate.get(Calendar.YEAR);
+            mMonth = mcurrentDate.get(Calendar.MONTH);
+            mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+        } else {
+            try {
+                String[] dateParts = selecteddate.split("-");
+                mYear = Integer.parseInt(dateParts[0]);
+                mMonth = Integer.parseInt(dateParts[1]) - 1;
+                mDay = Integer.parseInt(dateParts[2]);
+            } catch (Exception e) {
+                mYear = mcurrentDate.get(Calendar.YEAR);
+                mMonth = mcurrentDate.get(Calendar.MONTH);
+                mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+            }
+        }
         mcurrentDate.add(Calendar.DATE, -1);
 
         DatePickerDialog mDatePicker = new DatePickerDialog(InvestmentLeadDetailpage.this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
@@ -1272,8 +1345,8 @@ public class InvestmentLeadDetailpage extends Activity {
             json.put("premium_amount", "" + sum_assured.getText().toString().trim());
             json.put("cover", "" + sum_assured.getText().toString().trim());
             json.put("rider", "0");
-            json.put("ppt", "10");
-            json.put("duration", "10");
+            json.put("ppt", ""+ppt_id);
+            json.put("duration", ""+policy_term_id);
             json.put("states", "" + state_id);
             json.put("city", "" + city_id);
             json.put("contact_time", "" + contact_timestr);
@@ -1281,6 +1354,7 @@ public class InvestmentLeadDetailpage extends Activity {
             json.put("pri_feedback", "" + primary_feedback_id);
             json.put("sec_feedback", "" + secondary_feedback_id);
             json.put("agent_comment", "" + agent_comments.getText().toString().trim());
+            json.put("app_version", Constants.app_version);
 
         } catch (JSONException e) {
             e.printStackTrace();

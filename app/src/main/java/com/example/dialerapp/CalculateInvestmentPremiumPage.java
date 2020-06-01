@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -283,7 +284,7 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         });
 
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
         lead_id_heading.setText("Lead Id-" + lead_id + "(" + lead_name + ")");
 
         loggedin.setOnClickListener(new View.OnClickListener() {
@@ -346,13 +347,38 @@ public class CalculateInvestmentPremiumPage extends Activity {
                             JSONObject object = jsonArray1.getJSONObject(j);
                             if (object.getString("isVisible").equalsIgnoreCase("true")) {
                                 Gettersetterforall pack = new Gettersetterforall();
-                                JSONObject jsonObject1=object.getJSONObject("maturityBenefit");
+                                JSONObject jsonObject1 = object.getJSONObject("maturityBenefit");
                                 pack.setPolicy_name(object.getString("name"));
-                                pack.setYearly_premium(jsonObject1.getString("annually"));
-                                pack.setMonthly_premium(jsonObject1.getString("monthly"));
-                                pack.setHalfyearly_premium(jsonObject1.getString("halfYearly"));
-                                pack.setQuaterly_premium(jsonObject1.getString("quarterly"));
-                                pack.setSingle_premium(object.getString("premium"));
+                                try {
+                                    pack.setYearly_premium(jsonObject1.getString("annually"));
+                                } catch (Exception e) {
+                                    pack.setYearly_premium("0");
+                                }
+
+                                try {
+                                    pack.setMonthly_premium(jsonObject1.getString("monthly"));
+                                } catch (Exception e) {
+                                    pack.setMonthly_premium("0");
+                                }
+
+                                try {
+                                    pack.setHalfyearly_premium(jsonObject1.getString("halfYearly"));
+                                } catch (Exception e) {
+                                    pack.setHalfyearly_premium("0");
+                                }
+
+                                try {
+                                    pack.setQuaterly_premium(jsonObject1.getString("quarterly"));
+                                } catch (Exception e) {
+                                    pack.setQuaterly_premium("0");
+                                }
+
+                                try {
+                                    pack.setSingle_premium(jsonObject1.getString("single"));
+                                } catch (Exception e) {
+                                    pack.setSingle_premium("0");
+                                }
+
                                 policypremiumlist.add(pack);
                             }
 
@@ -396,6 +422,7 @@ public class CalculateInvestmentPremiumPage extends Activity {
             json.put("premiumFrequency", premiumFrequency);
             int gen = Integer.parseInt(gender);
             json.put("gender", gen);
+            json.put("app_version", Constants.app_version);
 
 
         } catch (JSONException e) {
@@ -451,15 +478,26 @@ public class CalculateInvestmentPremiumPage extends Activity {
                                 springDotsIndicator.setViewPager(viewPager);
 
 //For The First Time
-                                select_yearly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-                                select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-                                select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
+                                select_yearly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+                                select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+                                select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+                                select_yearly.setTextColor(Color.parseColor("#FFFFFF"));
+                                select_single.setTextColor(Color.parseColor("#000000"));
+                                select_halfyearly.setTextColor(Color.parseColor("#000000"));
+                                select_monthly.setTextColor(Color.parseColor("#000000"));
+                                select_quaterly.setTextColor(Color.parseColor("#000000"));
 
                                 update_policy_listing(0);
 
                                 progressDialog.dismiss();
+                                if (cardlist.size() == 0) {
+                                    Toast.makeText(CalculateInvestmentPremiumPage.this, "No Plan Available", Toast.LENGTH_LONG).show();
+
+                                    finish();
+                                }
                             } else {
                                 Toast.makeText(CalculateInvestmentPremiumPage.this, "No Plan Available", Toast.LENGTH_LONG).show();
 
@@ -626,7 +664,12 @@ public class CalculateInvestmentPremiumPage extends Activity {
                 holder.tv5.setText("Quaterly: " + list_car.get(position).getQuaterly_premium());
             }
 
-            holder.tv6.setVisibility(View.GONE);
+            if (list_car.get(position).getSingle_premium().equalsIgnoreCase("0")) {
+                holder.tv6.setVisibility(View.GONE);
+            } else {
+                select_single.setVisibility(View.VISIBLE);
+                holder.tv6.setText("Single: " + list_car.get(position).getSingle_premium());
+            }
 
             holder.linear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -638,13 +681,13 @@ public class CalculateInvestmentPremiumPage extends Activity {
                     if (frequency.equalsIgnoreCase("Yearly")) {
                         totalpremium = Float.parseFloat(list_car.get(row_index).getYearly_premium());
                     } else if (frequency.equalsIgnoreCase("Half Yearly")) {
-                        totalpremium =  Float.parseFloat(list_car.get(row_index).getHalfyearly_premium());
+                        totalpremium = Float.parseFloat(list_car.get(row_index).getHalfyearly_premium());
                     } else if (frequency.equalsIgnoreCase("Monthly")) {
-                        totalpremium =  Float.parseFloat(list_car.get(row_index).getMonthly_premium());
+                        totalpremium = Float.parseFloat(list_car.get(row_index).getMonthly_premium());
                     } else if (frequency.equalsIgnoreCase("Quaterly")) {
-                        totalpremium =  Float.parseFloat(list_car.get(row_index).getQuaterly_premium());
+                        totalpremium = Float.parseFloat(list_car.get(row_index).getQuaterly_premium());
                     } else if (frequency.equalsIgnoreCase("Single")) {
-                        totalpremium =  Float.parseFloat(list_car.get(row_index).getSingle_premium());
+                        totalpremium = Float.parseFloat(list_car.get(row_index).getSingle_premium());
                     }
 
                     total_premium.setText("Rs: " + totalpremium + " " + frequency);
@@ -659,21 +702,21 @@ public class CalculateInvestmentPremiumPage extends Activity {
                 row_index = 0;
             }
             if (row_index == position) {
-                holder.linear.setBackgroundResource(R.drawable.selectedpaolicybackground);
+                holder.linear.setBackgroundResource(R.drawable.selectedpolicybackground);
             } else {
                 holder.linear.setBackgroundResource(R.drawable.deselectedpolicypremiumback);
             }
 
             if (frequency.equalsIgnoreCase("Yearly")) {
-                totalpremium =  Float.parseFloat(list_car.get(row_index).getYearly_premium());
+                totalpremium = Float.parseFloat(list_car.get(row_index).getYearly_premium());
             } else if (frequency.equalsIgnoreCase("Half Yearly")) {
-                totalpremium =  Float.parseFloat(list_car.get(row_index).getHalfyearly_premium());
+                totalpremium = Float.parseFloat(list_car.get(row_index).getHalfyearly_premium());
             } else if (frequency.equalsIgnoreCase("Monthly")) {
-                totalpremium =  Float.parseFloat(list_car.get(row_index).getMonthly_premium());
+                totalpremium = Float.parseFloat(list_car.get(row_index).getMonthly_premium());
             } else if (frequency.equalsIgnoreCase("Quaterly")) {
-                totalpremium =  Float.parseFloat(list_car.get(row_index).getQuaterly_premium());
+                totalpremium = Float.parseFloat(list_car.get(row_index).getQuaterly_premium());
             } else if (frequency.equalsIgnoreCase("Single")) {
-                totalpremium =  Float.parseFloat(list_car.get(row_index).getSingle_premium());
+                totalpremium = Float.parseFloat(list_car.get(row_index).getSingle_premium());
             }
 
             total_premium.setText("Rs: " + totalpremium + " " + frequency);
@@ -897,11 +940,18 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         }
 
-        select_quaterly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-        select_yearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
+        select_quaterly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+        select_yearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+        select_quaterly.setTextColor(Color.parseColor("#FFFFFF"));
+        select_single.setTextColor(Color.parseColor("#000000"));
+        select_halfyearly.setTextColor(Color.parseColor("#000000"));
+        select_monthly.setTextColor(Color.parseColor("#000000"));
+        select_yearly.setTextColor(Color.parseColor("#000000"));
+
         if (filter_policypremiumlist.size() == 0) {
             Toast.makeText(getApplicationContext(), "No " + frequency + " Policy Available", Toast.LENGTH_SHORT).show();
             frequency = "Yearly";
@@ -959,14 +1009,22 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         }
 
-        select_yearly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-        select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
+        select_yearly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+        select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+        select_yearly.setTextColor(Color.parseColor("#FFFFFF"));
+        select_single.setTextColor(Color.parseColor("#000000"));
+        select_halfyearly.setTextColor(Color.parseColor("#000000"));
+        select_monthly.setTextColor(Color.parseColor("#000000"));
+        select_quaterly.setTextColor(Color.parseColor("#000000"));
 
         if (filter_policypremiumlist.size() == 0) {
             Toast.makeText(getApplicationContext(), "No " + frequency + " Policy Available", Toast.LENGTH_SHORT).show();
+            frequency = "Single";
+            single_adapter_notify();
         }
         radio_question_list_adapter = new Share_Adapter(CalculateInvestmentPremiumPage.this, filter_policypremiumlist);
         policy_premium_listing.setAdapter(radio_question_list_adapter);
@@ -1017,11 +1075,18 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         }
 
-        select_halfyearly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-        select_yearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
+        select_halfyearly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+        select_yearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+        select_halfyearly.setTextColor(Color.parseColor("#FFFFFF"));
+        select_single.setTextColor(Color.parseColor("#000000"));
+        select_yearly.setTextColor(Color.parseColor("#000000"));
+        select_monthly.setTextColor(Color.parseColor("#000000"));
+        select_quaterly.setTextColor(Color.parseColor("#000000"));
+
         if (filter_policypremiumlist.size() == 0) {
             Toast.makeText(getApplicationContext(), "No " + frequency + " Policy Available", Toast.LENGTH_SHORT).show();
             frequency = "Yearly";
@@ -1079,11 +1144,18 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         }
 
-        select_single.setBackgroundResource(R.drawable.selectedpaolicybackground);
-        select_yearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_monthly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
+        select_single.setBackgroundResource(R.drawable.selectedfrequencybackground);
+        select_yearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_monthly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+        select_single.setTextColor(Color.parseColor("#FFFFFF"));
+        select_yearly.setTextColor(Color.parseColor("#000000"));
+        select_halfyearly.setTextColor(Color.parseColor("#000000"));
+        select_monthly.setTextColor(Color.parseColor("#000000"));
+        select_quaterly.setTextColor(Color.parseColor("#000000"));
+
         if (filter_policypremiumlist.size() == 0) {
             Toast.makeText(getApplicationContext(), "No " + frequency + " Policy Available", Toast.LENGTH_SHORT).show();
             frequency = "Yearly";
@@ -1141,11 +1213,18 @@ public class CalculateInvestmentPremiumPage extends Activity {
             }
         }
 
-        select_monthly.setBackgroundResource(R.drawable.selectedpaolicybackground);
-        select_yearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_halfyearly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_quaterly.setBackgroundResource(R.drawable.ontimepaymentbackground);
-        select_single.setBackgroundResource(R.drawable.ontimepaymentbackground);
+        select_monthly.setBackgroundResource(R.drawable.selectedfrequencybackground);
+        select_yearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_halfyearly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_quaterly.setBackgroundResource(R.drawable.unselectedfrequencyback);
+        select_single.setBackgroundResource(R.drawable.unselectedfrequencyback);
+
+        select_monthly.setTextColor(Color.parseColor("#FFFFFF"));
+        select_single.setTextColor(Color.parseColor("#000000"));
+        select_halfyearly.setTextColor(Color.parseColor("#000000"));
+        select_yearly.setTextColor(Color.parseColor("#000000"));
+        select_quaterly.setTextColor(Color.parseColor("#000000"));
+
         if (filter_policypremiumlist.size() == 0) {
             Toast.makeText(getApplicationContext(), "No " + frequency + " Policy Available", Toast.LENGTH_SHORT).show();
             frequency = "Yearly";

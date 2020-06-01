@@ -9,7 +9,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/offerlistimagebackground"
         android:orientation="vertical"
         android:padding="10dp"
@@ -28,19 +28,19 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.example.dialerapp.FontClasses.PopinsSemibold
+                <com.example.dialerapp.FontClasses.PoppinsMedium
                     android:id="@+id/leadname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:maxLines="3"
                     android:text=""
-                    android:textColor="#788691"
-                    android:textSize="20sp" />
+                    android:textColor="#173338"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
-            <com.example.dialerapp.FontClasses.PoppinsRegular
+            <com.example.dialerapp.FontClasses.PoppinsMedium
                 android:id="@+id/leadmobile"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -48,7 +48,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="right"
                 android:maxLines="3"
-                android:textColor="#788691"
+                android:textColor="#173338"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -59,8 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
             android:maxLines="3"
-            android:textColor="#788691"
-            android:textSize="16sp" />
+            android:textColor="#64797D"
+            android:textSize="14sp" />
 
         <com.example.dialerapp.FontClasses.PoppinsRegular
             android:id="@+id/leadsource"
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
             android:maxLines="3"
-            android:textColor="#788691"
-            android:textSize="16sp" />
+            android:textColor="#64797D"
+            android:textSize="14sp" />
 
         <com.example.dialerapp.FontClasses.PoppinsRegular
             android:id="@+id/leadallocateddate"
@@ -77,8 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
             android:maxLines="3"
-            android:textColor="#788691"
-            android:textSize="16sp" />
+            android:textColor="#64797D"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

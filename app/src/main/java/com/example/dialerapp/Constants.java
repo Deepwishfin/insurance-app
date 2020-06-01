@@ -2,6 +2,8 @@ package com.example.dialerapp;
 
 class Constants {
 
+    static String app_version="1.1";
+
     static String BASE_URL = "https://stage.wish-insurance.com/";
 //    static String BASE_URL="https://www.wishpolicy.com/";
 

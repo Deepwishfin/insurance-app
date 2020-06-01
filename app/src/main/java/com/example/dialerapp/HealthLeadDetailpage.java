@@ -37,6 +37,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -491,7 +495,7 @@ public class HealthLeadDetailpage extends Activity {
 
                 DatePicdob());
 
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
         lead_id_heading.setText("Lead Id-" + lead_id + "(" + lead_name + ")");
 
         loggedin.setOnClickListener(new View.OnClickListener() {
@@ -534,7 +538,7 @@ public class HealthLeadDetailpage extends Activity {
         secondary_feedback_list = new ArrayList<>();
         secondary_feedback_list.clear();
 
-        secondary_feedback_list.add("Select Secondary Feedback");
+        secondary_feedback_list.add("Secondary Feedback");
         try {
             JSONArray jsonArray3 = feedbackresponse;
 
@@ -614,20 +618,6 @@ public class HealthLeadDetailpage extends Activity {
                                 deductible.setText("0");
                             }
                             SessionManager.save_customer_mobile(prefs, jsonObject1.getString("mobile_no"));
-                            try {
-                                if (!jsonObject1.getString("user_comment").equalsIgnoreCase("{}")) {
-                                    JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
-                                    if (!jsonObject11.toString().equals("{}")) {
-                                        wishfin_comments.setText(jsonObject11.toString());
-                                    }
-                                }
-                            } catch (Exception e) {
-                                JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
-                                if (!jsonObject11.toString().equals("{}")) {
-                                    wishfin_comments.setText(jsonObject11.toString());
-                                }
-                            }
-
 
                             if (jsonObject1.getString("Add_Comment").equalsIgnoreCase("null")
                                     || jsonObject1.getString("Add_Comment").equalsIgnoreCase("")) {
@@ -721,7 +711,7 @@ public class HealthLeadDetailpage extends Activity {
                             JSONArray jsonArray3 = (jsonObject1.getJSONArray("primary_feedback"));
 
                             feedbackresponse = (jsonObject1.getJSONArray("primary_feedback"));
-                            primary_feedback_list.add("Select Primary Feedback");
+                            primary_feedback_list.add("Primary Feedback");
                             for (int i = 0; i < jsonArray3.length(); i++) {
                                 JSONObject objectnew2 = jsonArray3.getJSONObject(i);
                                 Gettersetterforall pack = new Gettersetterforall();
@@ -739,6 +729,22 @@ public class HealthLeadDetailpage extends Activity {
                             primary_feedback_spinner.setAdapter(spinnerArrayAdapter);
                             primary_feedback_id = "";
                             getsecondaryfeedbackdata(primary_feedback_id);
+
+                            try {
+                                if (!jsonObject1.getString("user_comment").equalsIgnoreCase("{}")) {
+                                    JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
+                                    if (!jsonObject11.toString().equals("{}")) {
+                                        wishfin_comments.setText(jsonObject11.toString());
+                                    }
+                                }
+                            } catch (Exception e) {
+                                JSONObject jsonObject11 = (jsonObject1.getJSONObject("user_comment"));
+                                if (!jsonObject11.toString().equals("{}")) {
+                                    wishfin_comments.setText(jsonObject11.toString());
+                                }
+                            }
+
+
 
                             progressDialog.dismiss();
 
@@ -780,31 +786,47 @@ public class HealthLeadDetailpage extends Activity {
 
     private String agecalculator(String dateOfBirth) {
 
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
+        String userAge = "";
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date d = sdf.parse(dateOfBirth);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(d);
-            int month = (cal.get(Calendar.MONTH) + 1);
-            int day = (cal.get(Calendar.DATE));
-            int year = (cal.get(Calendar.YEAR));
-            dob.set(year, month, day);
+            PeriodFormatter mPeriodFormat = new PeriodFormatterBuilder().appendYears().appendSuffix(" year(s) ").appendMonths().appendSuffix(" month(s) ").appendDays().appendSuffix(" day(s) ").printZeroNever().toFormatter();
+
+            Date date2 = sdf.parse(dateOfBirth);
+
+            Calendar mcurrentDate = Calendar.getInstance();
+            mYear = mcurrentDate.get(Calendar.YEAR);
+            mMonth = mcurrentDate.get(Calendar.MONTH) + 1;
+            mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+            String month = "";
+            if (mMonth > 0 && mMonth < 10) {
+                month = "0" + mMonth;
+            } else {
+                month = "" + mMonth;
+            }
+
+            String days = "";
+            if (mDay < 10) {
+                days = "0" + mDay;
+            } else {
+                days = "" + mDay;
+            }
+
+
+            String currentdate = mYear + "-" + month + "-" + days;
+            Date date1 = sdf.parse(currentdate);
+
+            DateTime END_DT = (date1 == null) ? null : new DateTime(date1);
+            DateTime START_DT = (date2 == null) ? null : new DateTime(date2);
+
+            Period period = new Period(START_DT, END_DT);
+
+            userAge = mPeriodFormat.print(period);
+
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-
-        int ageInt = age;
-
-        return Integer.toString(ageInt);
+        return (userAge);
     }
 
     @Override
@@ -821,10 +843,22 @@ public class HealthLeadDetailpage extends Activity {
     private void DatePicdob() {
 
         Calendar mcurrentDate = Calendar.getInstance();
-        mYear = mcurrentDate.get(Calendar.YEAR);
-        mMonth = mcurrentDate.get(Calendar.MONTH);
-        mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
-
+        if (selecteddate.equalsIgnoreCase("")) {
+            mYear = mcurrentDate.get(Calendar.YEAR);
+            mMonth = mcurrentDate.get(Calendar.MONTH);
+            mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+        } else {
+            try {
+                String[] dateParts = selecteddate.split("-");
+                mYear = Integer.parseInt(dateParts[0]);
+                mMonth = Integer.parseInt(dateParts[1]) - 1;
+                mDay = Integer.parseInt(dateParts[2]);
+            } catch (Exception e) {
+                mYear = mcurrentDate.get(Calendar.YEAR);
+                mMonth = mcurrentDate.get(Calendar.MONTH);
+                mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+            }
+        }
         mcurrentDate.add(Calendar.DATE, -1);
 
         DatePickerDialog mDatePicker = new DatePickerDialog(HealthLeadDetailpage.this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
@@ -1062,6 +1096,7 @@ public class HealthLeadDetailpage extends Activity {
             json.put("pri_feedback", "" + primary_feedback_id);
             json.put("sec_feedback", "" + secondary_feedback_id);
             json.put("agent_comment", "" + agent_comments.getText().toString().trim());
+            json.put("app_version", Constants.app_version);
 
         } catch (JSONException e) {
             e.printStackTrace();

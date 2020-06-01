@@ -8,11 +8,14 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ public class LeadListingPage extends Activity implements SwipeRefreshLayout.OnRe
     Dialog dialog;
     private SwipeRefreshLayout swipeView;
     String lead_type = "", lead_name = "";
+    EditText search_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,8 @@ public class LeadListingPage extends Activity implements SwipeRefreshLayout.OnRe
         credit_factor_list = findViewById(R.id.list);
         loggedin = findViewById(R.id.loggedin);
         heading = findViewById(R.id.heading);
-
+        search_bar = findViewById(R.id.search_bar);
+        search_bar.setVisibility(View.VISIBLE);
         swipeView = findViewById(R.id.swipe_view);
         swipeView.setOnRefreshListener(this);
         swipeView.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark));
@@ -121,7 +126,7 @@ public class LeadListingPage extends Activity implements SwipeRefreshLayout.OnRe
         credit_factor_list.setLayoutManager(layoutManager1);
 
         heading.setText(lead_name + " Leads");
-        loggedin.setText("Log in as " + SessionManager.get_username(prefs));
+        loggedin.setText(SessionManager.get_username(prefs));
 
         loggedin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +158,64 @@ public class LeadListingPage extends Activity implements SwipeRefreshLayout.OnRe
         });
 
         get_cibil_credit_factors();
+
+        search_bar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // filter your list from your input
+                filter(s.toString());
+                //you can use runnable postDelayed like 500 ms to delay search text
+            }
+        });
+
+    }
+
+    void filter(String text) {
+        ArrayList<Gettersetterforall> temp = new ArrayList<>();
+        for (Gettersetterforall d : list1) {
+            if (d.getLead_first_name().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLead_lastname().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLead_email().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getAllocated_date().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLead_source().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLeadid().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if (d.getLead_mobile().toLowerCase().contains(text.toLowerCase())) {
+                temp.add(d);
+            } else if ((d.getLead_first_name().toLowerCase() + " " + d.getLead_lastname().toLowerCase()).contains(text.toLowerCase())) {
+                temp.add(d);
+            }
+        }
+        if (temp.size() == 0 && text.trim().equalsIgnoreCase("")) {
+            radio_question_list_adapter = new Share_Adapter(LeadListingPage.this, list1);
+            credit_factor_list.setAdapter(radio_question_list_adapter);
+            credit_factor_list.setVisibility(View.VISIBLE);
+
+        } else if (temp.size() != 0) {
+            radio_question_list_adapter = new Share_Adapter(LeadListingPage.this, temp);
+            credit_factor_list.setAdapter(radio_question_list_adapter);
+            credit_factor_list.setVisibility(View.VISIBLE);
+        }else{
+            credit_factor_list.setVisibility(View.GONE);
+        }
 
 
     }

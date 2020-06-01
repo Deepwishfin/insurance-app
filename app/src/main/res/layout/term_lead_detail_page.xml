@@ -6,15 +6,13 @@
     android:background="@drawable/gradientback"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/heading_back"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:padding="10dp"
         android:weightSum="3">
 
 
@@ -22,38 +20,40 @@
             android:id="@+id/heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="Lead Detail Page"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
             android:textAllCaps="true"
+            android:maxLines="1"
+            android:text="Lead detail page"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="16sp" />
+
+        <com.example.dialerapp.FontClasses.PoppinsRegular
+            android:id="@+id/loggedin"
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:gravity="right|center_vertical"
+            android:drawableEnd="@drawable/ic_logout"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
 
 
     </LinearLayout>
 
-
-    <com.example.dialerapp.FontClasses.PoppinsRegular
-        android:id="@+id/loggedin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:drawableEnd="@drawable/ic_logout"
-        android:drawablePadding="10dp"
-        android:gravity="right"
-        android:textAllCaps="true"
-        android:textColor="#788691"
-        android:textSize="16sp" />
-
     <com.example.dialerapp.FontClasses.PopinsSemibold
         android:id="@+id/lead_id_heading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#ffccff"
-        android:padding="5dp"
-        android:textColor="#707070"
+        android:gravity="center"
+        android:background="#DAF2F1"
+        android:padding="10dp"
+        android:textColor="#173338"
         android:textSize="18sp" />
 
     <RelativeLayout
@@ -77,8 +77,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="PERSONAL DETAILS"
-                    android:textColor="#707070"
-                    android:textSize="14sp" />
+                    android:textColor="#173338"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:id="@+id/linear"
@@ -108,12 +108,12 @@
                                 android:id="@+id/first_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="First Name"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -128,12 +128,12 @@
                                 android:id="@+id/last_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="Last Name"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp">
 
@@ -163,13 +163,13 @@
                                 android:id="@+id/email_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="Email Address"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
                                 android:inputType="textEmailAddress"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -184,7 +184,7 @@
                                 android:id="@+id/dob"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -194,7 +194,7 @@
                                 android:importantForAutofill="no"
                                 android:longClickable="false"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp">
 
@@ -211,11 +211,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
                         android:layout_weight="2"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             tools:ignore="NestedWeights">
 
@@ -223,7 +225,7 @@
                                 android:id="@+id/phone_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -233,7 +235,7 @@
                                 android:importantForAutofill="no"
                                 android:maxLength="10"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -251,17 +253,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="Marital Status"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/marital_spinner"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="2dp"
+                                android:background="@drawable/inputspinner"
                                 android:entries="@array/marital"
-                                android:paddingRight="15dp"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -285,14 +286,14 @@
                                 android:id="@+id/alternate_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="Alternate Phone"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -307,7 +308,7 @@
                                 android:id="@+id/age"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -319,7 +320,7 @@
                                 android:longClickable="false"
                                 android:maxLength="2"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp">
 
@@ -349,8 +350,8 @@
                         android:layout_weight="1"
                         android:text="Premium Details"
                         android:textAllCaps="true"
-                        android:textColor="#707070"
-                        android:textSize="14sp" />
+                        android:textColor="#173338"
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
@@ -384,17 +385,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="Gender"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/gender_spinner"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
+                                android:background="@drawable/inputspinner"
                                 android:entries="@array/gender"
-                                android:paddingRight="15dp"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -410,17 +410,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="Smoker"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/smoker_spinner"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
+                                android:background="@drawable/inputspinner"
                                 android:entries="@array/smoker"
-                                android:paddingRight="15dp"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -446,16 +445,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Sum Assured"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/sum_assured"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -471,16 +469,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Rider  Cover"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/rider_cover"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -507,23 +504,23 @@
                                 android:layout_height="wrap_content"
                                 android:text="Policy Term"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/policy_term"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="2dp"
+                                android:background="@drawable/inputspinner"
                                 android:entries="@array/policy_term"
-                                android:paddingRight="15dp"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             tools:ignore="NestedWeights">
 
@@ -531,14 +528,14 @@
                                 android:id="@+id/annual_income"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="Annual Income"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
                                 android:inputType="number"
                                 android:maxLength="8"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -565,16 +562,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Select State"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/auto_state"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -590,16 +586,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Select City"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/auto_city"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -613,8 +608,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="LEAD DETAILS"
-                    android:textColor="#707070"
-                    android:textSize="14sp" />
+                    android:textColor="#173338"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -636,13 +631,14 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:layout_marginTop="5dp"
                             tools:ignore="NestedWeights">
 
                             <EditText
                                 android:id="@+id/followup_date"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -653,7 +649,7 @@
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -663,6 +659,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <com.example.dialerapp.FontClasses.PoppinsRegular
@@ -670,45 +667,49 @@
                                 android:layout_height="wrap_content"
                                 android:text="Contact Time"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_marginBottom="2dp"
                                 android:orientation="horizontal"
                                 android:weightSum="3">
 
                                 <Spinner
                                     android:id="@+id/contact_time_hrs"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginEnd="2dp"
                                     android:layout_marginTop="5dp"
                                     android:layout_weight="1"
-                                    android:background="@null"
+                                    android:background="@drawable/small_spinner"
                                     android:entries="@array/hours"
-                                    android:paddingRight="5dp"
                                     android:popupBackground="#ffffff" />
 
                                 <Spinner
                                     android:id="@+id/contact_time_mn"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
                                     android:layout_marginTop="5dp"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginEnd="2dp"
                                     android:layout_weight="1"
-                                    android:background="@null"
+                                    android:background="@drawable/small_spinner"
                                     android:entries="@array/minutes"
-                                    android:paddingRight="5dp"
                                     android:popupBackground="#ffffff" />
 
                                 <Spinner
                                     android:id="@+id/contact_time_ampm"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
                                     android:layout_marginTop="5dp"
                                     android:layout_weight="1"
-                                    android:background="@null"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:background="@drawable/small_spinner"
                                     android:entries="@array/ampm"
-                                    android:paddingRight="5dp"
                                     android:popupBackground="#ffffff" />
                             </LinearLayout>
 
@@ -737,16 +738,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="Primary Feedback"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/primary_feedback_spinner"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:paddingEnd="10dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -762,16 +763,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="Secondary Feedback"
                                 android:textColor="#B0BAC9"
-                                android:textSize="10sp" />
+                                android:textSize="12sp" />
 
 
                             <Spinner
                                 android:id="@+id/secondary_feedback_spinner"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_spinner"
-                                android:paddingRight="15dp"
+                                android:paddingEnd="10dp"
+                                android:background="@drawable/inputspinner"
                                 android:popupBackground="#ffffff" />
                         </LinearLayout>
 
@@ -795,7 +796,7 @@
                                 android:id="@+id/lead_source"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -807,7 +808,7 @@
                                 android:longClickable="false"
                                 android:maxLength="10"
                                 android:singleLine="true"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -825,8 +826,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="COMMENTS"
-                    android:textColor="#707070"
-                    android:textSize="14sp" />
+                    android:textColor="#173338"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -854,7 +855,7 @@
                                 android:id="@+id/wishfin_comments"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:clickable="false"
                                 android:cursorVisible="false"
                                 android:focusable="false"
@@ -862,7 +863,7 @@
                                 android:hint="Wishfin Comments"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -877,11 +878,11 @@
                                 android:id="@+id/agent_comments"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#E2E2E2"
+                                android:backgroundTint="#9FD1CF"
                                 android:hint="Agent Comments"
                                 android:imeOptions="actionNext"
                                 android:importantForAutofill="no"
-                                android:textColor="#304258"
+                                android:textColor="#173338"
                                 android:textColorHint="#B0BAC9"
                                 android:textSize="14dp" />
                         </com.google.android.material.textfield.TextInputLayout>

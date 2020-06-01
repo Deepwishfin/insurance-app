@@ -5,26 +5,26 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class PopinsSemibold extends TextView {
+public class PopinsLight extends TextView {
 
-    public PopinsSemibold(Context context, AttributeSet attrs, int defStyle) {
+    public PopinsLight(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public PopinsSemibold(Context context, AttributeSet attrs) {
+    public PopinsLight(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PopinsSemibold(Context context) {
+    public PopinsLight(Context context) {
         super(context);
         init();
     }
 
     public void init() {
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(),
-                "Roboto-Bold.ttf");
+                "Roboto-Light.ttf");
         setTypeface(typeface, 1);
 
     }
